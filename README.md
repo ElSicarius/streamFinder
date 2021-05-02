@@ -18,3 +18,6 @@ python3 -m pip install -r requirements.txt
 
 python3 "Harry Potter 1"
 ```
+# example
+
+<img src="./images/demo.png"/>
