@@ -18,6 +18,9 @@ python3 -m pip install -r requirements.txt
 
 python3 "Harry Potter 1"
 ```
+then use shift + clic to try the different URLS and see if the media is working
+
+Enjoy your movie
 # example
 
 <img src="./images/demo.png"/>
