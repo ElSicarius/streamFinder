@@ -16,7 +16,7 @@ virtualenv -p python3.9 .py3
 source .py3/bin/activate
 python3 -m pip install -r requirements.txt
 
-python3 "Harry Potter 1"
+python3 streamFinder.py "Harry Potter 1"
 ```
 then use shift + clic to try the different URLS and see if the media is working
 
