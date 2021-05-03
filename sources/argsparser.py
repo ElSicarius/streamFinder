@@ -13,5 +13,7 @@ def get_arguments():
     parser.add_argument('-l',"--lang", help='language of the streaming', default="fr")
 
     parser.add_argument("-s", "--sources", help="select sources for streaming; values -> see readme (google is shit, recommended:\"DE\")", default="DE")
+
+    parser.add_argument("-n", "--numberResults", help="number of results from differents search engines", default=15)
     args = parser.parse_args()
     return args

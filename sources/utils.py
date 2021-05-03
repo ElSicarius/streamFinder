@@ -16,17 +16,16 @@ import sources.consts as consts
 
 def duckduckgo_this(keywords: str, max_results: int=15) -> set:
     url = 'https://duckduckgo.com/html/?q='
-
     url = url+keywords.replace(" ","+")
-
     res = requests.get(url, headers={"User-Agent":"curl"})
     doc = bs4.BeautifulSoup(res.text, 'html.parser')
-
     results = doc.find_all("a", class_="result__a")
     res = set()
     for result in results:
-        res.add( unquote(result["href"].split("uddg=")[1].split("&rut=")[0] ) )
-
+        if len(res) < max_results:
+            res.add( unquote(result["href"].split("uddg=")[1].split("&rut=")[0] ) )
+        else:
+            break
     return res
 
 def google_this(what: str, row: int, n: int, offset: int=0, SafeSearch="off", lang="fr", tld="fr"):
@@ -51,7 +50,7 @@ def get_external_urls(title:str) -> set:
         if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
             continue
         name = file[:-3]
-        print(f"Running module {name}")
+        print(f"\033[K\033[1;36mRunning module {name}")
         module = importlib.import_module(name)
         links |= module.Movie().get_movie(title)
     sys.path.pop(0)
@@ -61,9 +60,9 @@ def get_external_urls(title:str) -> set:
 def url_threading(url: str) -> set:
     if url == "":
         return set()
-    #print(f"requesting {url!s}")
+    print(f"\033[KTrying to find iframe on {url!s}", end="\r")
     try:
-        content = requests.get(url)
+        content = requests.get(url, timeout=5)
     except:
         return set()
     res = set()

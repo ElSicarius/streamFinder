@@ -21,3 +21,8 @@ white_list_websites = [
 
 reg_urls_streaming = "https?://.*\.mp4"
 reg_url = "https?://[^\"]+"
+
+
+# colors
+purple = "\033[1;35;40m"
+green = "\033[92m"
