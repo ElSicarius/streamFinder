@@ -9,6 +9,28 @@ I don't own the movies nor the url hostsing or anything. I'm just googling stuff
 
 Use this tool at your own risks, i'm not responsible if you contribute to the fall of streaming platforms.
 
+# sources selector
+
+## Options available
+
+full: GDE
+- G = Google search
+- D = Duckduckgo search
+- E = External -> defined by you&me (see below)
+
+## External:
+Create a .py in the sources/plugin file (you can use xitof.py as a reference)
+
+define a class with the name "Movie"
+
+define a function inside called "get_movie(title: str) -> set"
+
+Do whatever needed to find and extract the url of a movie
+
+this function should return a set or links that will be printed to the user.
+
+Currently implemented: xitof/OKVOP or what ever the name is today
+
 # usage
 
 ```
@@ -18,9 +40,6 @@ python3 -m pip install -r requirements.txt
 
 python3 streamFinder.py "Harry Potter 1"
 ```
-then use shift + clic to try the different URLS and see if the media is working
-
-Enjoy your movie
 # example
 
 <img src="./images/demo.png"/>

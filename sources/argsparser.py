@@ -9,6 +9,9 @@ def get_arguments():
     """
     parser = argparse.ArgumentParser(description='', epilog="")
     parser.add_argument('title', help='Movie title', default=None)
+
     parser.add_argument('-l',"--lang", help='language of the streaming', default="fr")
+
+    parser.add_argument("-s", "--sources", help="select sources for streaming; values -> see readme", default="GDE")
     args = parser.parse_args()
     return args

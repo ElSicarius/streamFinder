@@ -1,17 +1,20 @@
 
 
-import sources.consts as consts
+#import sources.consts as consts
 
 from urllib import error
 from googlesearch import search
 import requests
 import bs4
 import re
-import time
+import os
+import sys
+import importlib
 
 from urllib.parse import unquote
+import sources.consts as consts
 
-def duckduckgo_this(keywords, max_results=15):
+def duckduckgo_this(keywords: str, max_results: int=15) -> set:
     url = 'https://duckduckgo.com/html/?q='
 
     url = url+keywords.replace(" ","+")
@@ -23,11 +26,10 @@ def duckduckgo_this(keywords, max_results=15):
     res = set()
     for result in results:
         res.add( unquote(result["href"].split("uddg=")[1].split("&rut=")[0] ) )
-        time.sleep(0.1)
 
     return res
 
-def google_this(what, row, n, offset=0, SafeSearch="off", lang="fr", tld="fr"):
+def google_this(what: str, row: int, n: int, offset: int=0, SafeSearch="off", lang="fr", tld="fr"):
     print(f"Searching for {what}")
     try:
         res = search(what, tld=tld, num=row, start=offset, stop=n, pause=5, lang=lang, safe=SafeSearch, extra_params={'filter': '0'})
@@ -36,13 +38,27 @@ def google_this(what, row, n, offset=0, SafeSearch="off", lang="fr", tld="fr"):
     return res
 
 
-def is_not_garbage(url):
+def is_not_garbage(url: str) -> bool:
     if any([True for element in consts.black_list_websites if element in url ]):
         return False
     return True
 
 
-def url_threading(url):
+def get_external_urls(title:str) -> set:
+    links = set()
+    sys.path.insert(0, "sources/plugin")
+    for file in os.listdir("sources/plugin"):
+        if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
+            continue
+        name = file[:-3]
+        print(f"Running module {name}")
+        module = importlib.import_module(name)
+        links |= module.Movie().get_movie(title)
+    sys.path.pop(0)
+    return links
+
+
+def url_threading(url: str) -> set:
     if url == "":
         return set()
     #print(f"requesting {url!s}")
