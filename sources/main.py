@@ -7,7 +7,8 @@ import sources.consts as consts
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED, CancelledError, thread
 
 
-FINAL_URLS = set()
+FINAL_URLS_GARB = set()
+FINAL_URLS_EXT = set()
 
 def find_url_on_shitty_web(urls: set) -> None:
     executor = ThreadPoolExecutor(max_workers=10)
@@ -18,16 +19,39 @@ def find_url_on_shitty_web(urls: set) -> None:
         done, futures = wait(futures, return_when=FIRST_COMPLETED)
         for futu in done:
             for url in futu.result():
-                if is_not_garbage(url) and not url in FINAL_URLS:
-                    FINAL_URLS.add(url)
+                if is_not_garbage(url) and not url in FINAL_URLS_GARB:
+                    FINAL_URLS_GARB.add(url)
 
-def print_urls(title: str, color: int=1) -> None:
+def print_urls(title: str, links:list, color: int=1) -> None:
     # color -> 1 = pink; 2 = green
     color = consts.purple if color == 1 else consts.green
-    global FINAL_URLS
-    for url in sorted(list(FINAL_URLS)):
+    for url in sorted(list(links)):
         print(f"\033[K{color}##### {url}\033[0m")
-    FINAL_URLS = set()
+
+
+def search_movie(title: str, sources: str="DE", lang: str="fr", nbRes=30) -> tuple:
+    urls_global = set()
+    search = f"{title} streaming {lang}"
+    if "G" in sources:
+        urls = google_this(search , 1, nbRes, lang=lang)
+        for res in urls:
+            urls_global.add(res)
+
+    if "D" in sources:
+        urls_global |= duckduckgo_this(search, max_results=nbRes)
+
+    urls = set()
+    for url in urls_global:
+        if is_not_garbage(url):
+            urls.add(url)
+    print(f"Found {len(urls)} urls")
+    find_url_on_shitty_web(urls)
+
+    if "E" in sources:
+        global FINAL_URLS_EXT
+        FINAL_URLS_EXT |= get_external_urls(title)
+
+    return FINAL_URLS_GARB, FINAL_URLS_EXT
 
 def main() -> None:
     args = get_arguments()
@@ -40,28 +64,9 @@ def main() -> None:
     search = f"{title} streaming {lang}"
     sources = args.sources
     print(f"Using defined sources: {sources}")
-    urls_global = set()
 
-    if "G" in sources:
-        urls = google_this(search , 1, numberResults, lang=lang)
-        for res in urls:
-            urls_global.add(res)
+    search_movie(title, sources=sources, lang=lang, nbRes=numberResults)
+    print_urls(title, FINAL_URLS_GARB, color=1)
+    print_urls(title, FINAL_URLS_EXT, color=2)
 
-    if "D" in sources:
-        urls_global |= duckduckgo_this(search, max_results=numberResults)
-
-    urls = set()
-    for url in urls_global:
-        if is_not_garbage(url):
-            urls.add(url)
-    print(f"Found {len(urls)} urls")
-    find_url_on_shitty_web(urls)
-
-    print_urls(title, color=1)
-
-    if "E" in sources:
-        global FINAL_URLS
-        FINAL_URLS |= get_external_urls(title)
-
-    print_urls(title, color=2)
     return
