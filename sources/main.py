@@ -1,7 +1,7 @@
 
-from .argsparser import get_arguments
-from .utils import google_this, is_not_garbage, url_threading, duckduckgo_this
-from .utils import get_external_urls
+from sources.argsparser import get_arguments
+from sources.utils import google_this, is_not_garbage, url_threading, duckduckgo_this
+from sources.utils import get_external_urls
 import sources.consts as consts
 
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED, CancelledError, thread
