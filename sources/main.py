@@ -68,8 +68,8 @@ def main() -> None:
     sources = args.sources
     print(f"Using defined sources: {sources}")
 
-    search_movie(title, sources=sources, lang=lang, nbRes=numberResults)
-    print_urls(title, FINAL_URLS_GARB, color=1)
-    print_urls(title, FINAL_URLS_EXT, color=2)
+    urls_garb, urls_ext = search_movie(title, sources=sources, lang=lang, nbRes=numberResults)
+    print_urls(title, urls_garb, color=1)
+    print_urls(title, urls_ext, color=2)
 
     return
