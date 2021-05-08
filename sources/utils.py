@@ -45,15 +45,18 @@ def is_not_garbage(url: str) -> bool:
 
 def get_external_urls(title:str) -> set:
     links = set()
-    sys.path.insert(0, "sources/plugin")
-    for file in os.listdir("sources/plugin"):
+    import os
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print(dir_path)
+    sys.path.insert(1, "/var/www/html/streamFinder/sources/plugin")
+    for file in os.listdir("/var/www/html/streamFinder/sources/plugin"):
         if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
             continue
         name = file[:-3]
         print(f"\033[K\033[1;36mRunning module {name}")
         module = importlib.import_module(name)
         links |= module.Movie().get_movie(title)
-    sys.path.pop(0)
+    sys.path.insert(1, "/var/www/html/streamFinder/")
     return links
 
 

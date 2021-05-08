@@ -33,6 +33,7 @@ Currently implemented: xitof/OKVOP or what ever the name is today
 
 # usage
 
+CLI:
 ```
 virtualenv -p python3.9 .py3
 source .py3/bin/activate
@@ -40,6 +41,27 @@ python3 -m pip install -r requirements.txt
 
 python3 streamFinder.py "Harry Potter 1"
 ```
-# example
+
+Web setup:
+```
+cd /var/www/html/
+git clone <git url>
+virtualenv -p python3.9 .py3
+source .py3/bin/activate
+python3 -m pip install -r requirements.txt
+
+cd web
+uwsgi --http :80 --wsgi-file streamFinder_web.wsgi
+```
+Modify username and password in the file /var/www/html/streamFinder/web/modules/streamFinder_web.py
+Default is admin:secret
+
+# Web preview
+## Search page:
+<img src="./images/srch.png"/>
+
+## Result example
+<img src="./images/res.png"/>
+# Command line example
 
 <img src="./images/demo.png"/>

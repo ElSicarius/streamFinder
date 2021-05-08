@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>Osintool</title>
+    <title>StreamFinder</title>
     <link rel="stylesheet" type= "text/css" href=" {{ url_for("static", filename="home.css") }} ">
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -20,11 +20,49 @@
     <div class="centre">
       <h1 class=" display-4">Rechercher un film</h1><br>
       <center>
-      <form action="/" method="post">
-        <input type="text" name="name" id="name" placeholder="Titre du film" required>
-        <br><br>
-	<button type="submit" class="btn btn-dark">Recherche</button>
-      </form>
+      <form class="form-horizontal" action="/" method="post">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>StreamFinder</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="control-label" for="textinput">Rechercher un film</label>
+          <div >
+          <input id="name" name="name" type="text" placeholder="Titre du film" class="form-control input-md">
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="control-label" for="Langue">Langue (deux lettres)</label>
+          <div >
+          <input id="lang" name="lang" type="text" value="fr" class="form-control input-md col-md-4">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class=" control-label" for="checkboxes">Sources</label>
+          <div >
+            <label class="checkbox-inline" for="checkboxes-0">
+              <input type="checkbox" name="google" id="checkboxes-0" value="G">
+              Google
+            </label>
+            <label class="checkbox-inline" for="checkboxes-1">
+              <input type="checkbox" name="duckduckgo" id="checkboxes-1" value="D" checked>
+              DuckDuckGo
+            </label>
+            <label class="checkbox-inline" for="checkboxes-2">
+              <input type="checkbox" name="external" id="checkboxes-2" value="E" checked>
+              Externe
+          </div>
+        </div>
+
+
+          <button type="submit" class="btn btn-dark">Rechercher</button>
+
+        </fieldset>
+        </form>
       <br>
       </center>
     </div>

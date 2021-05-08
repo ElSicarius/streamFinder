@@ -14,7 +14,7 @@ def find_url_on_shitty_web(urls: set) -> None:
     executor = ThreadPoolExecutor(max_workers=10)
     futures = set()
     futures.update({ executor.submit(url_threading, url) for url in urls})
-
+    global FINAL_URLS_GARB
     while futures:
         done, futures = wait(futures, return_when=FIRST_COMPLETED)
         for futu in done:
@@ -31,9 +31,11 @@ def print_urls(title: str, links:list, color: int=1) -> None:
 
 def search_movie(title: str, sources: str="DE", lang: str="fr", nbRes=30) -> tuple:
     urls_global = set()
+    global FINAL_URLS_EXT
+    global FINAL_URLS_GARB
     search = f"{title} streaming {lang}"
     if "G" in sources:
-        urls = google_this(search , 1, nbRes, lang=lang)
+        urls = google_this(search , 1, nbRes)
         for res in urls:
             urls_global.add(res)
 
@@ -48,10 +50,11 @@ def search_movie(title: str, sources: str="DE", lang: str="fr", nbRes=30) -> tup
     find_url_on_shitty_web(urls)
 
     if "E" in sources:
-        global FINAL_URLS_EXT
         FINAL_URLS_EXT |= get_external_urls(title)
 
-    return FINAL_URLS_GARB, FINAL_URLS_EXT
+    fin_1, fin_2 = FINAL_URLS_GARB, FINAL_URLS_EXT
+    FINAL_URLS_GARB, FINAL_URLS_EXT = set(), set()
+    return fin_1, fin_2
 
 def main() -> None:
     args = get_arguments()

@@ -31,7 +31,7 @@ class Movie(set):
             if not '#top' in elm.__str__():
                 # dirty bur meh
                 movie_name = element.__str__().split(elm+"\">")[1].split(" <")[0].strip("\n").strip(" ")
-                self.add(f"{movie_name}; link= {self.url_sane+elm.__str__()}")
+                self.add(f"{movie_name}; {self.url_sane+elm.__str__()}")
 
 
     def get_movie(self, title:str) -> set:

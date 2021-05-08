@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>Osintool</title>
+    <title>StreamFinder</title>
     <link rel="stylesheet" type= "text/css" href=" {{ url_for("static", filename="home.css") }} ">
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -22,13 +22,28 @@
   <table class="table table-hover table-dark">
   <thead>
     <tr>
-      <th scope="col">Sites</th>
+      <th scope="col">Streaming Links garbage</th>
     </tr>
   </thead>
   <tbody>
-    {% for result in resultat %}
+    {% for result in resultat_garb %}
       <tr>
          <th scope="row"><a href="{{ result }}">{{ result }}</a></th>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+  </table>
+  <table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Streaming links External</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for name,link in resultat_ext %}
+      <tr>
+         <th scope="row"><a href="{{ link }}">{{ name }}</a></th>
       </tr>
     {% endfor %}
 
