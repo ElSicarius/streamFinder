@@ -62,6 +62,7 @@ Default is admin:secret
 
 ## Result example
 <img src="./images/res.png"/>
+
 # Command line example
 
 <img src="./images/demo.png"/>
