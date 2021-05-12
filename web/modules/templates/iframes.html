@@ -15,7 +15,6 @@
     <header>
       <nav class="navbar navbar-dark bg-dark">
         <a class="nav-brand text-white" href="/">StreamFinder / Recherche</a>
-        <a class="nav-brand text-white" href="/iframes?id={{ iframes_id }}">StreamFinder / Iframes</a>
       </nav>
     </header>
       <h1 class="display-4">Résultat sur : {{ name }}</h1><br>
@@ -23,45 +22,16 @@
   <table class="table table-hover table-dark">
   <thead>
     <tr>
-      <th scope="col">Streaming Links garbage</th>
+      <th>Streaming Links iframes</th>
     </tr>
   </thead>
   <tbody>
-    {% for result in resultat_garb %}
+    {% for result in links %}
       <tr>
-         <th scope="row"><a href="{{ result }}">{{ result }}</a></th>
+         <iframe sandbox="allow-same-origin allow-scripts" width="600" height="600" src="{{ result }}"></iframe>
       </tr>
     {% endfor %}
 
-  </tbody>
-  </table>
-  <table class="table table-hover table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Streaming links External</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for name,link in resultat_ext %}
-      <tr>
-         <th scope="row"><a href="{{ link }}">{{ name }}</a></th>
-      </tr>
-    {% endfor %}
-
-  </tbody>
-  </table>
-  <table class="table table-hover table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Raw streaming websites</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for link in resultats_raw %}
-      <tr>
-         <th scope="row"><a href="{{ link }}">{{ link }}</a></th>
-      </tr>
-    {% endfor %}
 
   </tbody>
   </table>
