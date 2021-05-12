@@ -8,6 +8,8 @@ black_list_websites = [
 "lumendatabase",
 "youtube",
 "facebook",
+"allocine",
+"openload.co" # recently disabled by gov
 ]
 
 
@@ -26,3 +28,5 @@ reg_url = "https?://[^\"]+"
 # colors
 purple = "\033[1;35;40m"
 green = "\033[92m"
+dark_blue = "\033[94m"
+red = "\033[91m"

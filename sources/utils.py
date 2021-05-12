@@ -15,6 +15,7 @@ from urllib.parse import unquote
 import sources.consts as consts
 
 def duckduckgo_this(keywords: str, max_results: int=15) -> set:
+    print(f"\033[1;35;40mSearching {keywords!r} on duckduckgo\033[0m")
     url = 'https://duckduckgo.com/html/?q='
     url = url+keywords.replace(" ","+")
     res = requests.get(url, headers={"User-Agent":"curl"})
@@ -29,10 +30,8 @@ def duckduckgo_this(keywords: str, max_results: int=15) -> set:
     return res
 
 def google_this(what: str, stop: int, lang="fr", tld="com"):
-    try:
-        res = search(what, tld=tld, stop=stop, lang=lang, safe="off", extra_params={'filter': '0'}, verify_ssl=False)
-    except error.HTTPError:
-        print("Google cooldown... you need a to change your IP")
+    print(f"\033[1;35;40mSearching {what!r} on google\033[0m")
+    res = search(what, tld=tld, stop=stop, lang=lang, safe="off", pause=2, extra_params={'filter': '0'}, verify_ssl=False)
     return res
 
 
@@ -47,13 +46,12 @@ def get_external_urls(title:str) -> set:
     links = set()
     import os
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    print(dir_path)
     sys.path.insert(1, "/var/www/html/streamFinder/sources/plugin")
     for file in os.listdir("/var/www/html/streamFinder/sources/plugin"):
         if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
             continue
         name = file[:-3]
-        print(f"\033[K\033[1;36mRunning module {name}")
+        print(f"\033[K\033[1;36mRunning module {name}\033[0m")
         module = importlib.import_module(name)
         links |= module.Movie().get_movie(title)
     sys.path.insert(1, "/var/www/html/streamFinder/")

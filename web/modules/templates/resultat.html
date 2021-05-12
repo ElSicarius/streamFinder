@@ -49,5 +49,20 @@
 
   </tbody>
   </table>
+  <table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Raw streaming websites</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for link in resultats_raw %}
+      <tr>
+         <th scope="row"><a href="{{ link }}">{{ link }}</a></th>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+  </table>
   </body>
 </html>

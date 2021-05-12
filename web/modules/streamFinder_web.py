@@ -2,6 +2,7 @@
 import sys
 from flask import Flask, render_template, request, Response
 from functools import wraps
+import json
 sys.path.insert(1, "/var/www/html/streamFinder/")
 from sources.main import search_movie
 sys.path.insert(1, "/var/www/html/streamFinder/web/modules/")
@@ -47,14 +48,17 @@ def resultat():
     sources += result["google"]
     sources += result["duckduckgo"]
     sources += result["external"]
-    print(sources)
     lang = result['lang']
 
-    links_garb, links_ext = search_movie(title, sources=sources, lang=lang, nbRes=30 )
+    links_garb, links_ext, raw_websites = search_movie(title, sources=sources, lang=lang, nbRes=30 )
 
-    print("Search for", title, links_garb, links_ext)
+    print("Search for", title, links_garb, links_ext, raw_websites)
     links_ext = [(erf,erf.split(";")[1]) for erf in links_ext]
-    return render_template("resultat.html", resultat_garb=links_garb, resultat_ext=links_ext, name=title)
+    return render_template("resultat.html",
+                            resultat_garb=links_garb,
+                            resultat_ext=links_ext,
+                            resultats_raw=raw_websites,
+                            name=title)
 
 
 if __name__ == "__main__":
