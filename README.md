@@ -9,6 +9,14 @@ I don't own the movies nor the url hostsing or anything. I'm just googling stuff
 
 Use this tool at your own risks, i'm not responsible if you contribute to the fall of streaming platforms.
 
+# Web results
+
+To each search made through the tool, an unique ID is associated. Use this ID to go back to the results at any time !
+
+How to use this id ?
+-> /iframes?id=<id>
+-> /results?id=<id>
+
 # sources selector
 
 ## Options available
@@ -62,6 +70,10 @@ Default is admin:secret
 
 ## Result example
 <img src="./images/res.png"/>
+
+## iframes loading example
+
+<img src="./images/iframes.png"/>
 
 # Command line example
 
