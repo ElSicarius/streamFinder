@@ -14,8 +14,8 @@ Use this tool at your own risks, i'm not responsible if you contribute to the fa
 To each search made through the tool, an unique ID is associated. Use this ID to go back to the results at any time !
 
 How to use this id ?
--> /iframes?id=<id>
--> /results?id=<id>
+- /iframes?id=__id__
+- /results?id=__id__
 
 # sources selector
 
