@@ -15,6 +15,7 @@
     <header>
       <nav class="navbar navbar-dark bg-dark">
         <a class="nav-brand text-white" href="/">StreamFinder / Recherche</a>
+        <a class="nav-brand text-white" href="/results?id={{ results_id }}">StreamFinder / results</a>
       </nav>
     </header>
       <h1 class="display-4">Résultat sur : {{ name }}</h1><br>
@@ -28,7 +29,8 @@
   <tbody>
     {% for result in links %}
       <tr>
-         <iframe sandbox="allow-same-origin allow-scripts" width="600" height="600" src="{{ result }}"></iframe>
+         <iframe sandbox="allow-same-origin allow-scripts" width="500" height="500" src="{{ result }}" allowfullscreen></iframe>
+         <a style="color: black;" href="{{ result }}"> &lt;- Direct link</a>
       </tr>
     {% endfor %}
 

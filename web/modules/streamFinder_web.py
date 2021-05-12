@@ -101,7 +101,7 @@ def get_results():
                             resultat_garb=table["garb"],
                             resultat_ext=table["ext"],
                             resultats_raw=table["raw"],
-                            iframes_id=id_,
+                            results_id=id_,
                             name=title)
 
 @app.route("/iframes", methods = ['GET'])
@@ -129,7 +129,7 @@ def iframes():
         links = []
         title = "Couldn't find your results with this id"
     return render_template("iframes.html",
-                            id=id_,
+                            results_id=id_,
                             links=links,
                             name=title)
 
