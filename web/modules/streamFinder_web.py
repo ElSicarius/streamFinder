@@ -1,6 +1,6 @@
 #!/usr/bin/python3.7
 import sys
-from flask import Flask, render_template, request, Response, url_for
+from flask import Flask, render_template, request, Response, url_for, redirect
 from functools import wraps
 import json
 import uuid
