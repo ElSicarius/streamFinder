@@ -34,29 +34,26 @@ def google_this(what: str, stop: int, lang="fr", tld="com"):
     res = search(what, tld=tld, stop=stop, lang=lang, safe="off", pause=2, extra_params={'filter': '0'}, verify_ssl=False)
     return res
 
-
 def is_garbage(url: str) -> bool:
     for element in consts.black_list_websites:
         if element in url:
             return True
     return False
 
-
 def get_external_urls(title:str) -> set:
     links = set()
     import os
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    sys.path.insert(1, "/var/www/html/streamFinder/sources/plugin")
-    for file in os.listdir("/var/www/html/streamFinder/sources/plugin"):
+    sys.path.insert(1, os.path.join(os.getcwd(), "sources/plugin"))
+    for file in os.listdir(os.path.join(os.getcwd(), "sources/plugin")):
         if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
             continue
         name = file[:-3]
         print(f"\033[K\033[1;36mRunning module {name}\033[0m")
         module = importlib.import_module(name)
         links |= module.Movie().get_movie(title)
-    sys.path.insert(1, "/var/www/html/streamFinder/")
+    sys.path.insert(1, os.path.join(os.getcwd(), ""))
     return links
-
 
 def url_threading(url: str) -> set:
     if url == "":
