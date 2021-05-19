@@ -1,7 +1,7 @@
 # streamFinder
-a tool to find streaming URLS based on movie title
+A tool to find streaming URLS based on movie title.
 
-This will look for google and duckduckgo links, try to go on streaming websites for you, and return direct streaming urls, without shitty ads from streaming websites.
+This will look for Google and Duckduckgo links, try to go on streaming websites for you, and return direct streaming urls, without shitty ads from streaming websites.
 
 # /!\
 
@@ -17,8 +17,7 @@ How to use this id ?
 - /iframes?id=__id__
 - /results?id=__id__
 
-# sources selector
-
+# Sources selector
 ## Options available
 
 full: GDE
@@ -27,30 +26,41 @@ full: GDE
 - E = External -> defined by you&me (see below)
 
 ## External:
-Create a .py in the sources/plugin file (you can use xitof.py as a reference)
+1. Create a .py in the sources/plugin file (you can use xitof.py as a reference).
+2. Define a class with the name "Movie".
+3. Define a function inside called "get_movie(title: str) -> set".
+4. Do whatever needed to find and extract the url of a movie.
+5. This function should return a set or links that will be printed to the user.
 
-define a class with the name "Movie"
+Currently implemented: xitof/OKVOP or what ever the name is today.
 
-define a function inside called "get_movie(title: str) -> set"
-
-Do whatever needed to find and extract the url of a movie
-
-this function should return a set or links that will be printed to the user.
-
-Currently implemented: xitof/OKVOP or what ever the name is today
-
-# usage
-
-CLI:
+# Tool setup
+## CLI
+In the steps below, we assume that the user `user` is used and is sudoer. Install the needed packages.
 ```
-virtualenv -p python3.9 .py3
-source .py3/bin/activate
+sudo apt install python3-virtualenv build-essential libpython3-dev -y
+```
+`git clone` the project and set the correct permissions.
+```
+cd /srv/
+sudo git clone https://github.com/ElSicarius/streamFinder.git
+sudo chown user:user /srv/streamFinder -R
+```
+Create a venv and use it.
+```
+virtualenv -p python3 /srv/streamFinder/.py3
+source  /srv/streamFinder/.py3/bin/activate
+```
+Install the required modules (if a module fails to install, fix the problem and run the command again).
+```
 python3 -m pip install -r requirements.txt
-
+```
+Then, try to run the tool.
+```
 python3 streamFinder.py "Harry Potter 1"
 ```
 
-Web setup:
+## Web interface
 ```
 cd /var/www/html/
 git clone <git url>
