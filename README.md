@@ -35,10 +35,12 @@ full: GDE
 Currently implemented: xitof/OKVOP or what ever the name is today.
 
 # Tool setup
+This tool has been tested on fresh newly installed Ubuntu 20.04 server LTS and Debian 10.9 distros.
+
 ## CLI
-In the steps below, we assume that the user `user` is used and is sudoer, and that use are using a clean fresh Ubuntu 20.04 distro. Install the needed packages.
+In the steps below, we assume that the user `user` is used and is sudoer. Install the needed packages.
 ```
-sudo apt install python3-virtualenv build-essential libpython3-dev -y
+sudo apt install python3-virtualenv build-essential libpython3-dev git python3-pip -y
 ```
 `git clone` the project and set the correct permissions.
 ```
@@ -49,7 +51,7 @@ sudo chown user:user /srv/streamFinder -R
 Create a venv and use it.
 ```
 cd /srv/streamFinder/
-virtualenv -p python3 /srv/streamFinder/.py3
+python3 -m virtualenv /srv/streamFinder/.py3
 source  /srv/streamFinder/.py3/bin/activate
 ```
 Install the required modules (if a module fails to install, fix the problem and run the command again).
