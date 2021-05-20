@@ -42,17 +42,16 @@ def is_garbage(url: str) -> bool:
 
 def get_external_urls(title:str) -> set:
     links = set()
-    import os
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    sys.path.insert(1, os.path.join(os.getcwd(), "sources/plugin"))
-    for file in os.listdir(os.path.join(os.getcwd(), "sources/plugin")):
+    sys.path.insert(1, os.path.join(os.getcwd(), "sources/plugin").replace("web/", ""))
+    for file in os.listdir(os.path.join(os.getcwd(), "sources/plugin").replace("web/", "")):
         if not re.match(r"^[a-zA-Z\d_]+\.py$", file):
             continue
         name = file[:-3]
         print(f"\033[K\033[1;36mRunning module {name}\033[0m")
         module = importlib.import_module(name)
         links |= module.Movie().get_movie(title)
-    sys.path.insert(1, os.path.join(os.getcwd(), ""))
+    sys.path.insert(1, os.path.join(os.getcwd(), "").replace("web/", ""))
     return links
 
 def url_threading(url: str) -> set:
