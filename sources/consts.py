@@ -20,6 +20,10 @@ white_list_websites = [
 "vudeo"
 ]
 
+# Proxy var
+PROXY = None
+PROXIES = None
+
 
 reg_urls_streaming = "https?://.*\.mp4"
 reg_url = "https?://[^\"]+"
