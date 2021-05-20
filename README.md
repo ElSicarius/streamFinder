@@ -36,7 +36,7 @@ Currently implemented: xitof/OKVOP or what ever the name is today.
 
 # Tool setup
 ## CLI
-In the steps below, we assume that the user `user` is used and is sudoer. Install the needed packages.
+In the steps below, we assume that the user `user` is used and is sudoer, and that use are using a clean fresh Ubuntu 20.04 distro. Install the needed packages.
 ```
 sudo apt install python3-virtualenv build-essential libpython3-dev -y
 ```
@@ -48,6 +48,7 @@ sudo chown user:user /srv/streamFinder -R
 ```
 Create a venv and use it.
 ```
+cd /srv/streamFinder/
 virtualenv -p python3 /srv/streamFinder/.py3
 source  /srv/streamFinder/.py3/bin/activate
 ```
@@ -61,18 +62,12 @@ python3 streamFinder.py "Harry Potter 1"
 ```
 
 ## Web interface
+We assume you followed the setup steps above. Now, you can run the web interface by running the commands below.
 ```
-cd /var/www/html/
-git clone <git url>
-virtualenv -p python3.9 .py3
-source .py3/bin/activate
-python3 -m pip install -r requirements.txt
-
-cd web
-uwsgi --http :80 --wsgi-file streamFinder_web.wsgi
+cd /srv/streamFinder/web/
+uwsgi --http :8080 --wsgi-file streamFinder_web.wsgi
 ```
-Modify username and password in the file /var/www/html/streamFinder/web/modules/streamFinder_web.py
-Default is admin:secret
+Modify username and password in the file `/var/www/html/streamFinder/web/modules/streamFinder_web.py`. Default is `admin`:`secret`.
 
 # Web preview
 ## Search page:
@@ -88,3 +83,7 @@ Default is admin:secret
 # Command line example
 
 <img src="./images/demo.png"/>
+
+# Issues
+- You may encounter issues while running this tool or installing the `pip` packages (i.e. the tool not working at all) if your are using a VPN (blacklisted IP) or a proxy. If so, try to disable them and to run the tool again.
+- If you get a Python error while running the tool, check that all the required packages are correctly installed.
